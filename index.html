@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel de Salas de Aula</title>
+
+  <!-- Fonte personalizada Panton -->
+  <style>
+    @font-face {
+      font-family: 'Panton';
+      src: url('fonts/Panton-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Panton';
+      src: url('fonts/Panton-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Panton', sans-serif;
+      background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    /* Logo no topo, com responsividade */
+    .logo {
+      width: 100%;
+      text-align: cent;
+      padding-top: 2px; /* Espaço superior para a logo */
+      padding-bottom: 2px; /* Espaço inferior para separar o conteúdo */
+    }
+
+    .logo img {
+      width: 50%;
+      max-width: 200px; /* Logo ajusta de acordo com a tela */
+      height: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .painel-container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-top: 40px; /* Espaço após a logo */
+    }
+
+    .andar {
+      flex: 1;
+      text-align: center;
+      min-width: 320px;
+    }
+
+    .painel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      padding: 20px;
+      width: 260px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      min-width: 250px;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .lab-card {
+      background-color: #e1f5fe;
+      border-left: 6px solid #0288d1;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      color: #222;
+      font-size: 1.5rem;
+    }
+
+    .card p {
+      margin: 5px 0;
+      font-size: 1rem;
+    }
+
+    .status {
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    .em-aula    { background-color: #dcedc8; color: #2e7d32; }
+    .livre      { background-color: #ffcdd2; color: #c62828; }
+
+    .sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
+    .sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
+    .sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 40px;
+      color: #888;
+    }
+
+    @media (max-width: 768px) {
+      .painel-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Painel de Salas de Aula</h1>
+  
+  <div class="painel-container">
+    <div class="andar">
+      <h2>Térreo</h2>
+      <div class="painel" id="terreo"></div>
+    </div>
+    <div class="andar">
+      <h2>Primeiro Andar</h2>
+      <div class="painel" id="primeiro"></div>
+    </div>
+  </div>
+
+  <script>
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycbzC5n-4jHw5HzNwy3KHR6dPTRyj6wU5TCNLmlFxRyyQ0xRaUEr7Kwd6Crmi-XNv_fUk/exec';
+
+    const salasVermelhas = ['01', '02', '03', '06', '10', '19'];
+    const salasAmarelas  = ['07', '11', '13', '15', '17', '18'];
+    const salasVerdes    = ['08', '09', '12', '14'];
+
+    function obterEmojiCurso(curso) {
+      if (!curso) return '';
+      const mapaEmojis = {
+        'Administração': '📊',
+        'Análises Clínicas': '🧪',
+        'Enfermagem': '🩺',
+        'Farmácia': '💊',
+        'Instrumentação Cirúrgica': '🗡️',
+        'Radiologia': '☢️',
+        'Edificações': '🏗️',
+        'Eletrotécnica': '⚡',
+        'Segurança do Trabalho': '🦺',
+        'Flebotomia': '💉'
+      };
+      return mapaEmojis[curso.trim()] || '';
+    }
+
+    function determinarStatus(sala) {
+      return (sala.curso || sala.turma || sala.turno) ? 'em-aula' : 'livre';
+    }
+
+    function extrairNumeroSala(nomeSala) {
+      const match = nomeSala.match(/\d+/);
+      return match ? match[0] : '';
+    }
+
+    async function atualizarPainel() {
+      try {
+        const response = await fetch(webAppUrl);
+        const salas = await response.json();
+
+        document.getElementById('terreo').innerHTML = '';
+        document.getElementById('primeiro').innerHTML = '';
+
+        salas.forEach(sala => {
+          const status = determinarStatus(sala);
+          const statusTexto = status === 'em-aula' ? '📚 Em aula' : '🟢 Livre';
+          const numeroSala = extrairNumeroSala(sala.nome);
+
+          const card = document.createElement('div');
+          card.className = 'card';
+
+          if (sala.nome.toLowerCase().includes('lab')) {
+            card.classList.add('lab-card');
+          }
+
+          if (salasVerdes.includes(numeroSala)) {
+            card.classList.add('sala-verde');
+          } else if (salasVermelhas.includes(numeroSala)) {
+            card.classList.add('sala-vermelha');
+          } else if (salasAmarelas.includes(numeroSala)) {
+            card.classList.add('sala-amarela');
+          }
+
+          let conteudo = `<h2>${sala.nome}</h2>`;
+          if (status === 'em-aula') {
+            conteudo += ` 
+              <p><strong>${obterEmojiCurso(sala.curso)} ${sala.curso || '-'}</strong> - ${sala.turma || '-'}</p>
+              <p><strong>Turno:</strong> ${sala.turno || '-'}</p>
+            `;
+          }
+          conteudo += `<p class="status ${status}">${statusTexto}</p>`;
+          card.innerHTML = conteudo;
+
+          const painelId = (sala.andar?.toLowerCase() === 'primeiro') ? 'primeiro' : 'terreo';
+          document.getElementById(painelId).appendChild(card);
+        });
+      } catch (error) {
+        console.error('Erro ao buscar dados do Google Sheets:', error);
+      }
+    }
+
+    atualizarPainel();
+    setInterval(atualizarPainel, 60000);
+  </script>
+
+  <footer>
+  <div class="logo">
+    <img src="logo.jpg" alt="Grau Educacional" />
+  </div>
+    <p>&copy; 2025 Junior Bezerra (TI Grau Educacional - Unidade Petrolina)</p>
+  </footer>
+</body>
+</html>
