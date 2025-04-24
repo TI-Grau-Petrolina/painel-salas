@@ -264,6 +264,10 @@
       <h2>Primeiro Andar</h2>
       <div class="painel" id="primeiro"></div>
     </div>
+	
+	<div id="sem-dados" style="display: none; text-align: center; margin-top: 30px; color: red; font-weight: bold;">
+	  ⚠️ Nenhuma informação disponível no momento.
+	</div>
   </div>
 
   <script>
@@ -341,8 +345,14 @@
           const painelId = (sala.andar?.toLowerCase() === 'primeiro') ? 'primeiro' : 'terreo';
           document.getElementById(painelId).appendChild(card);
         });
+		if (!document.querySelector('#terreo .card') && !document.querySelector('#primeiro .card')) {
+		  document.getElementById('sem-dados').style.display = 'block';
+		} else {
+		  document.getElementById('sem-dados').style.display = 'none';
+		}
       } catch (error) {
         console.error('Erro ao buscar dados do Google Sheets:', error);
+		document.getElementById('sem-dados').style.display = 'block';
       }
     }
 
