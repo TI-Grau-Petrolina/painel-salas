@@ -112,6 +112,13 @@
       margin-top: 10px;
       font-size: 0.9rem;
     }
+	.relogio-container {
+	  text-align: center;
+	  font-size: 1.2rem;
+	  margin-top: 5px;
+	  color: #555;
+	  font-weight: bold;
+	}
 
     .em-aula    { background-color: #dcedc8; color: #2e7d32; }
     .livre      { background-color: #ffcdd2; color: #c62828; }
@@ -138,6 +145,9 @@
 <body>
 
   <h1>Painel de Salas de Aula</h1>
+  <div class="relogio-container">
+	  <span id="relogio"></span>
+</div>
   
   <div class="painel-container">
     <div class="andar">
@@ -231,6 +241,19 @@
 
     atualizarPainel();
     setInterval(atualizarPainel, 60000);
+  	function atualizarRelogio() {
+  		const agora = new Date();
+  		const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
+  		const opcoesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+  
+  		const dataFormatada = agora.toLocaleDateString('pt-BR', opcoesData);
+  		const horaFormatada = agora.toLocaleTimeString('pt-BR', opcoesHora);
+  
+  		document.getElementById('relogio').textContent = `${dataFormatada} | ${horaFormatada}`;
+  	  }
+  
+  	  atualizarRelogio();
+  	  setInterval(atualizarRelogio, 1000);
   </script>
 
   <footer>
