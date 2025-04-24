@@ -140,11 +140,92 @@
         align-items: center;
       }
     }
+	.tema-botao {
+	  position: fixed;
+	  top: 10px;
+	  left: 10px;
+	  background: #fff;
+	  border: 1px solid #ccc;
+	  padding: 8px 12px;
+	  border-radius: 8px;
+	  cursor: pointer;
+	  z-index: 100;
+	  font-weight: bold;
+	}
+
+	.dark-mode {
+	  background: #121212;
+	  color: #f0f0f0;
+	}
+	
+	.dark-mode h1 {
+	  color: #ffffff;
+	}
+
+	.dark-mode .relogio-container {
+	  color: #ffffff;
+	}
+	
+	.dark-mode h1,
+	.dark-mode .relogio-container {
+	  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+	}
+	
+	.dark-mode .card h2 {
+	  color: #ffffff;
+	}
+
+	.dark-mode .card p,
+	.dark-mode .card .status {
+	  color: #e0e0e0;
+	}
+
+	.dark-mode .card {
+	  background: #1e1e1e;
+	  color: #fff;
+	}
+
+	.dark-mode .lab-card {
+	  background: #263238;
+	  border-left-color: #0288d1;
+	}
+
+	.dark-mode .status.em-aula {
+	  background-color: #33691e;
+	  color: #c5e1a5;
+	}
+
+	.dark-mode .status.livre {
+	  background-color: #b71c1c;
+	  color: #ffcdd2;
+	}
+
+	.dark-mode .tema-botao {
+	  background: #333;
+	  color: #fff;
+	  border-color: #555;
+	}
+	.dark-mode .sala-vermelha {
+	  background-color: #3b1e1e !important;
+	  border-left: 6px solid #ff8a80;
+	}
+
+	.dark-mode .sala-amarela {
+	  background-color: #3b3615 !important;
+	  border-left: 6px solid #fff176;
+	}
+
+	.dark-mode .sala-verde {
+	  background-color: #1b2f1b !important;
+	  border-left: 6px solid #81c784;
+	}
+
   </style>
 </head>
 <body>
 
   <h1>Painel de Salas de Aula</h1>
+  <button id="toggle-dark" class="tema-botao">🌙 Modo Escuro</button>
   <div class="relogio-container">
 	  <span id="relogio"></span>
 </div>
@@ -241,19 +322,24 @@
 
     atualizarPainel();
     setInterval(atualizarPainel, 60000);
-  	function atualizarRelogio() {
-  		const agora = new Date();
-  		const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
-  		const opcoesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-  
-  		const dataFormatada = agora.toLocaleDateString('pt-BR', opcoesData);
-  		const horaFormatada = agora.toLocaleTimeString('pt-BR', opcoesHora);
-  
-  		document.getElementById('relogio').textContent = `${dataFormatada} | ${horaFormatada}`;
-  	  }
-  
-  	  atualizarRelogio();
-  	  setInterval(atualizarRelogio, 1000);
+	function atualizarRelogio() {
+		const agora = new Date();
+		const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
+		const opcoesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
+		const dataFormatada = agora.toLocaleDateString('pt-BR', opcoesData);
+		const horaFormatada = agora.toLocaleTimeString('pt-BR', opcoesHora);
+
+		document.getElementById('relogio').textContent = `${dataFormatada} | ${horaFormatada}`;
+	  }
+
+	  atualizarRelogio();
+	  setInterval(atualizarRelogio, 1000);
+	  
+	document.getElementById('toggle-dark').addEventListener('click', function () {
+	  document.body.classList.toggle('dark-mode');
+	  this.textContent = document.body.classList.contains('dark-mode') ? '☀️ Modo Claro' : '🌙 Modo Escuro';
+	});
   </script>
 
   <footer>
