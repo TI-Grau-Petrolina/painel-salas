@@ -1,251 +1,236 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Painel de Salas de Aula</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel de Salas de Aula</title>
+  <link rel="icon" type="image/png" href="https://www.grautecnico.com.br/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fic-esfera-grau.2b30dfe9.png&w=1920&q=75">
 
-<!-- Favicon personalizado -->
-<link rel="icon" type="image/png" href="https://www.grautecnico.com.br/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fic-esfera-grau.2b30dfe9.png&w=1920&q=75">
+  <!-- Estilo e fontes -->
+  <style>
+    @font-face {
+      font-family: 'Panton';
+      src: url('fonts/Panton-Regular.ttf') format('truetype');
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: 'Panton';
+      src: url('fonts/Panton-Bold.ttf') format('truetype');
+      font-weight: bold;
+    }
 
-<!-- Fonte personalizada Panton -->
-<style>
-@font-face {
-  font-family: 'Panton';
-  src: url('fonts/Panton-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+    body {
+      font-family: 'Panton', sans-serif;
+      background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+      margin: 0;
+      padding: 0;
+    }
+	
+    .logo {
+      width: 100%;
+      text-align: center;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
 
-@font-face {
-  font-family: 'Panton';
-  src: url('fonts/Panton-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
+    .logo img {
+      width: 50%;
+      max-width: 200px;
+      height: auto;
+    }
 
-body {
-  font-family: 'Panton', sans-serif;
-  background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #333;
+      margin-top: 55px;
+    }
 
-/* Logo no topo, com responsividade */
-.logo {
-  width: 100%;
-  text-align: center;
-  padding-top: 2px; /* Espaço superior para a logo */
-  padding-bottom: 2px; /* Espaço inferior para separar o conteúdo */
-}
+    .relogio-container {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 5px;
+      color: #555;
+      font-weight: bold;
+    }
 
-.logo img {
-  width: 50%;
-  max-width: 200px; /* Logo ajusta de acordo com a tela */
-  height: auto;
-}
+    .painel-container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
 
-h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  color: #333;
-  margin-top: 20px;
-}
+    .andar {
+      flex: 1;
+      text-align: center;
+      min-width: 320px;
+    }
 
-.painel-container {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  flex-wrap: wrap;
-  margin-top: 40px; /* Espaço após a logo */
-}
+    .painel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
 
-.andar {
-  flex: 1;
-  text-align: center;
-  min-width: 320px;
-}
+    .card {
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      padding: 20px;
+      width: 260px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      min-width: 250px;
+      cursor: pointer;
+      position: relative;
+    }
 
-.painel {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
+    .card.expanded {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      height: auto;
+      z-index: 9999;
+    }
 
-.card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-  padding: 20px;
-  width: 260px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  min-width: 250px;
-  cursor: pointer;
-}
+    .lab-card {
+      background-color: #e1f5fe;
+      border-left: 6px solid #0288d1;
+    }
 
-.card:hover {
-  transform: scale(1.02);
-}
+    .card h2 {
+      margin: 0 0 10px;
+      color: #222;
+      font-size: 1.5rem;
+    }
 
-.lab-card {
-  background-color: #e1f5fe;
-  border-left: 6px solid #0288d1;
-}
+    .card p {
+      margin: 5px 0;
+      font-size: 1rem;
+    }
 
-.card h2 {
-  margin: 0 0 10px;
-  color: #222;
-  font-size: 1.5rem;
-}
+    .status {
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
 
-.card p {
-  margin: 5px 0;
-  font-size: 1rem;
-}
+    .em-aula    { background-color: #dcedc8; color: #2e7d32; }
+    .livre      { background-color: #ffcdd2; color: #c62828; }
 
-.status {
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 20px;
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
+    .sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
+    .sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
+    .sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
 
-.relogio-container {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 5px;
-  color: #555;
-  font-weight: bold;
-}
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 40px;
+      color: #888;
+    }
 
-.em-aula    { background-color: #dcedc8; color: #2e7d32; }
-.livre      { background-color: #ffcdd2; color: #c62828; }
+    .busca-mobile {
+      display: none;
+      text-align: center;
+      margin: 10px 0;
+    }
 
-.sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
-.sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
-.sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
+    .busca-mobile input {
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
 
-footer {
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 40px;
-  color: #888;
-}
+    .tema-botao {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 100;
+      font-weight: bold;
+    }
 
-@media (max-width: 768px) {
-  .painel-container {
-    flex-direction: column;
-    align-items: center;
-  }
-}
+    .dark-mode {
+      background: #121212;
+      color: #f0f0f0;
+    }
 
-.tema-botao {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  z-index: 100;
-  font-weight: bold;
-}
+    .dark-mode h1,
+    .dark-mode .relogio-container {
+      color: #ffffff;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
 
-.dark-mode {
-  background: #121212;
-  color: #f0f0f0;
-}
+    .dark-mode .card {
+      background: #1e1e1e;
+      color: #fff;
+    }
 
-.dark-mode h1 {
-  color: #ffffff;
-}
+    .dark-mode .card h2 {
+      color: #fff;
+    }
 
-.dark-mode .relogio-container {
-  color: #ffffff;
-}
+    .dark-mode .lab-card {
+      background: #263238;
+      border-left-color: #0288d1;
+    }
 
-.dark-mode h1,
-.dark-mode .relogio-container {
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-}
+    .dark-mode .status.em-aula {
+      background-color: #33691e;
+      color: #c5e1a5;
+    }
 
-.dark-mode .card h2 {
-  color: #ffffff;
-}
+    .dark-mode .status.livre {
+      background-color: #b71c1c;
+      color: #ffcdd2;
+    }
 
-.dark-mode .card p,
-.dark-mode .card .status {
-  color: #e0e0e0;
-}
+    .dark-mode .tema-botao {
+      background: #333;
+      color: #fff;
+      border-color: #555;
+    }
 
-.dark-mode .card {
-  background: #1e1e1e;
-  color: #fff;
-}
+    .dark-mode .sala-vermelha {
+      background-color: #3b1e1e !important;
+      border-left: 6px solid #ff8a80;
+    }
 
-.dark-mode .lab-card {
-  background: #263238;
-  border-left-color: #0288d1;
-}
+    .dark-mode .sala-amarela {
+      background-color: #3b3615 !important;
+      border-left: 6px solid #fff176;
+    }
 
-.dark-mode .status.em-aula {
-  background-color: #33691e;
-  color: #c5e1a5;
-}
+    .dark-mode .sala-verde {
+      background-color: #1b2f1b !important;
+      border-left: 6px solid #81c784;
+    }
 
-.dark-mode .status.livre {
-  background-color: #b71c1c;
-  color: #ffcdd2;
-}
-
-.dark-mode .tema-botao {
-  background: #333;
-  color: #fff;
-  border-color: #555;
-}
-
-.dark-mode .sala-vermelha {
-  background-color: #3b1e1e !important;
-  border-left: 6px solid #ff8a80;
-}
-
-.dark-mode .sala-amarela {
-  background-color: #3b3615 !important;
-  border-left: 6px solid #fff176;
-}
-
-.dark-mode .sala-verde {
-  background-color: #1b2f1b !important;
-  border-left: 6px solid #81c784;
-}
-
-.busca-mobile {
-  display: none;
-  text-align: center;
-  margin: 10px 0;
-}
-
-.busca-mobile input {
-  padding: 10px;
-  width: 80%;
-  max-width: 400px;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
-}
-
-@media (max-width: 768px) {
-  .busca-mobile {
-    display: block;
-  }
-}
-
-</style>
+    @media (max-width: 768px) {
+      .painel-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .busca-mobile {
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -253,21 +238,14 @@ footer {
 <div class="busca-mobile">
   <input type="text" id="filtro" placeholder="Buscar sala ou curso..." oninput="filtrarSalas()">
 </div>
-
-<!-- Botão tema -->
 <button id="toggle-dark" class="tema-botao">🌙 Modo Escuro</button>
-
-<!-- Relógio/data -->
-<div class="relogio-container">
-  <span id="relogio"></span>
-</div>
+<div class="relogio-container"><span id="relogio"></span></div>
 
 <div class="painel-container">
   <div class="andar">
     <h2>Térreo</h2>
     <div class="painel" id="terreo"></div>
   </div>
-
   <div class="andar">
     <h2>Primeiro Andar</h2>
     <div class="painel" id="primeiro"></div>
@@ -277,13 +255,13 @@ footer {
 <script>
 const webAppUrl = 'https://script.google.com/macros/s/AKfycbzC5n-4jHw5HzNwy3KHR6dPTRyj6wU5TCNLmlFxRyyQ0xRaUEr7Kwd6Crmi-XNv_fUk/exec';
 
-const salasVermelhas = ['01', '02', '03', '06', '10', '19'];
+const salasVermelhas = ['01', '02', '03', '06', '10', '16', '19'];
 const salasAmarelas  = ['07', '11', '13', '15', '17', '18'];
 const salasVerdes    = ['08', '09', '12', '14'];
 
 function obterEmojiCurso(curso) {
   if (!curso) return '';
-  const mapaEmojis = {
+  const mapa = {
     'Administração': '📊',
     'Análises Clínicas': '🧪',
     'Enfermagem': '🩺',
@@ -295,32 +273,31 @@ function obterEmojiCurso(curso) {
     'Segurança do Trabalho': '🦺',
     'Flebotomia': '💉'
   };
-  return mapaEmojis[curso.trim()] || '';
+  return mapa[curso.trim()] || '';
 }
 
 function determinarStatus(sala) {
   return (sala.curso || sala.turma || sala.turno) ? 'em-aula' : 'livre';
 }
 
-function extrairNumeroSala(nomeSala) {
-  const match = nomeSala.match(/\d+/);
+function extrairNumeroSala(nome) {
+  const match = nome.match(/\d+/);
   return match ? match[0] : '';
+}
+
+function formatarDataBrasileira(dataISO) {
+  const date = new Date(dataISO);
+  const semana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+  return `Data: ${semana[date.getDay()]}, ${date.toLocaleDateString('pt-BR')}`;
 }
 
 function filtrarSalas() {
   const termo = document.getElementById('filtro').value.toLowerCase();
   const cards = document.querySelectorAll('.card');
-
   cards.forEach(card => {
     const texto = card.innerText.toLowerCase();
     card.style.display = texto.includes(termo) ? 'block' : 'none';
   });
-}
-
-// Função para formatar a data
-function formatarData(data) {
-  const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit' };
-  return new Date(data).toLocaleDateString('pt-BR', options);
 }
 
 async function atualizarPainel() {
@@ -335,85 +312,97 @@ async function atualizarPainel() {
       const status = determinarStatus(sala);
       const statusTexto = status === 'em-aula' ? '📚 Em aula' : '🟢 Livre';
       const numeroSala = extrairNumeroSala(sala.nome);
-
       const card = document.createElement('div');
       card.className = 'card';
 
-      if (sala.nome.toLowerCase().includes('lab')) {
-        card.classList.add('lab-card');
-      }
-
-      if (salasVerdes.includes(numeroSala)) {
-        card.classList.add('sala-verde');
-      } else if (salasVermelhas.includes(numeroSala)) {
-        card.classList.add('sala-vermelha');
-      } else if (salasAmarelas.includes(numeroSala)) {
-        card.classList.add('sala-amarela');
-      }
+      if (sala.nome.toLowerCase().includes('lab')) card.classList.add('lab-card');
+      if (salasVerdes.includes(numeroSala)) card.classList.add('sala-verde');
+      else if (salasVermelhas.includes(numeroSala)) card.classList.add('sala-vermelha');
+      else if (salasAmarelas.includes(numeroSala)) card.classList.add('sala-amarela');
 
       let conteudo = `<h2>${sala.nome}</h2>`;
-      conteudo += `<p><strong>${obterEmojiCurso(sala.curso)} ${sala.curso || '-'}</strong> - ${sala.turma || '-'}</p>`;
-      conteudo += `<p><strong>Turno:</strong> ${sala.turno || '-'}</p>`;
-      conteudo += `<p><strong>Data:</strong> ${formatarData(sala.data)}</p>`;
+      if (status === 'em-aula') {
+        conteudo += `
+          <p><strong>${obterEmojiCurso(sala.curso)} ${sala.curso || '-'}</strong> - ${sala.turma || '-'}</p>
+          <p><strong>Turno:</strong> ${sala.turno || '-'}</p>
+          <p class="info-extra" style="display:none">
+            ${formatarDataBrasileira(sala.data)}<br>
+            <strong>Instrutor:</strong> ${sala.instrutor || '-'}<br>
+            <strong>Capacidade:</strong> ${sala.capacidade || '-'}<br>
+            <strong>Duração:</strong> ${sala.duracao || '-'}<br>
+            <strong>Obs:</strong> ${sala.observacoes || '-'}
+          </p>
+        `;
+      }
       conteudo += `<p class="status ${status}">${statusTexto}</p>`;
-      conteudo += `<div class="detalhes" id="detalhes-${sala.nome}" style="display: none;">`;
-      conteudo += `<p><strong>Instrutor:</strong> ${sala.instrutor || '-'}</p>`;
-      conteudo += `<p><strong>Capacidade:</strong> ${sala.capacidade || '-'}</p>`;
-      conteudo += `<p><strong>Duração:</strong> ${sala.duracao || '-'}</p>`;
-      conteudo += `<p><strong>Observações:</strong> ${sala.observacoes || '-'}</p>`;
-      conteudo += `</div>`;
-
       card.innerHTML = conteudo;
 
-      card.onclick = (event) => {
-        // Impede o clique de se propagar para o body
-        event.stopPropagation();
-
-        const detalhes = document.getElementById(`detalhes-${sala.nome}`);
-        const todasAsSalas = document.querySelectorAll('.detalhes');
-        
-        // Oculta todos os detalhes
-        todasAsSalas.forEach(det => {
-          if (det !== detalhes) {
-            det.style.display = 'none';
+      card.addEventListener('click', function (e) {
+        e.stopPropagation();
+        document.querySelectorAll('.card.expanded').forEach(c => {
+          if (c !== card) {
+            c.classList.remove('expanded');
+            c.querySelector('.info-extra')?.style.setProperty('display', 'none');
           }
         });
 
-        // Alterna a visibilidade da sala clicada
-        detalhes.style.display = detalhes.style.display === 'block' ? 'none' : 'block';
-      };
+        const info = card.querySelector('.info-extra');
+        if (card.classList.contains('expanded')) {
+          card.classList.remove('expanded');
+          info.style.display = 'none';
+        } else {
+          card.classList.add('expanded');
+          info.style.display = 'block';
+        }
+      });
 
-      const painelId = numeroSala <= 10 ? 'terreo' : 'primeiro';
+      const painelId = (sala.andar?.toLowerCase() === 'primeiro') ? 'primeiro' : 'terreo';
       document.getElementById(painelId).appendChild(card);
     });
+
+    document.body.addEventListener('click', () => {
+      document.querySelectorAll('.card.expanded').forEach(card => {
+        card.classList.remove('expanded');
+        card.querySelector('.info-extra')?.style.setProperty('display', 'none');
+      });
+    });
   } catch (error) {
-    console.error('Erro ao buscar dados do Google Sheets:', error);
+    console.error('Erro ao buscar dados:', error);
   }
 }
 
-// Fecha todos os detalhes se clicar fora das salas
-document.body.addEventListener('click', () => {
-  const todasAsSalas = document.querySelectorAll('.detalhes');
-  todasAsSalas.forEach(det => {
-    det.style.display = 'none';
-  });
-});
-
-// Atualizar painel inicialmente
-atualizarPainel();
-
-// Atualização automática do relógio
 function atualizarRelogio() {
-  const data = new Date();
-  const horas = String(data.getHours()).padStart(2, '0');
-  const minutos = String(data.getMinutes()).padStart(2, '0');
-  const segundos = String(data.getSeconds()).padStart(2, '0');
-  const dataFormatada = formatarData(data);
+  const agora = new Date();
+  const semana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+  const data = `${semana[agora.getDay()]}, ${agora.toLocaleDateString('pt-BR')}`;
+  const hora = agora.toLocaleTimeString('pt-BR');
+  document.getElementById('relogio').textContent = `${data} | ${hora}`;
   
-  document.getElementById('relogio').innerText = `${dataFormatada} | ${horas}:${minutos}:${segundos}`;
 }
 
+document.getElementById('toggle-dark').addEventListener('click', function () {
+	  document.body.classList.toggle('dark-mode');
+
+const modoEscuroAtivo = document.body.classList.contains('dark-mode');
+	  this.textContent = modoEscuroAtivo ? '☀️ Modo Claro' : '🌙 Modo Escuro';
+
+	  const logo = document.getElementById('logo-img');
+	  if (logo) {
+		logo.src = modoEscuroAtivo ? 'logo_white.jpg' : 'logo.jpg';
+	  }
+	}); 
+
+atualizarPainel();
+setInterval(atualizarPainel, 60000);
+atualizarRelogio();
 setInterval(atualizarRelogio, 1000);
 </script>
+
+<footer>
+    <div class="logo">
+      <img id="logo-img" src="logo.jpg" alt="Grau Educacional" />
+    </div>
+    <p>&copy; 2025 Junior Bezerra (TI Grau Educacional - Unidade Petrolina)</p>
+  </footer>
 </body>
 </html>
