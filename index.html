@@ -1,395 +1,419 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel de Salas de Aula</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Painel de Salas de Aula</title>
 
-  <!-- Favicon personalizado -->
-  <link rel="icon" type="image/png" href="https://www.grautecnico.com.br/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fic-esfera-grau.2b30dfe9.png&w=1920&q=75">
+<!-- Favicon personalizado -->
+<link rel="icon" type="image/png" href="https://www.grautecnico.com.br/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fic-esfera-grau.2b30dfe9.png&w=1920&q=75">
 
-  <!-- Fonte personalizada Panton -->
-  <style>
-    @font-face {
-      font-family: 'Panton';
-      src: url('fonts/Panton-Regular.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-    }
+<!-- Fonte personalizada Panton -->
+<style>
+@font-face {
+  font-family: 'Panton';
+  src: url('fonts/Panton-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
-    @font-face {
-      font-family: 'Panton';
-      src: url('fonts/Panton-Bold.ttf') format('truetype');
-      font-weight: bold;
-      font-style: normal;
-    }
+@font-face {
+  font-family: 'Panton';
+  src: url('fonts/Panton-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
-    body {
-      font-family: 'Panton', sans-serif;
-      background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
-      margin: 0;
-      padding: 0;
-      position: relative;
-    }
+body {
+  font-family: 'Panton', sans-serif;
+  background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
 
-    .logo {
-      width: 100%;
-      text-align: center;
-      padding-top: 2px;
-      padding-bottom: 2px;
-    }
+/* Logo no topo, com responsividade */
+.logo {
+  width: 100%;
+  text-align: center;
+  padding-top: 2px; /* Espaço superior para a logo */
+  padding-bottom: 2px; /* Espaço inferior para separar o conteúdo */
+}
 
-    .logo img {
-      width: 50%;
-      max-width: 200px;
-      height: auto;
-    }
+.logo img {
+  width: 50%;
+  max-width: 200px; /* Logo ajusta de acordo com a tela */
+  height: auto;
+}
 
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      color: #333;
-      margin-top: 55px;
-    }
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-top: 20px;
+}
 
-    .painel-container {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
+.painel-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-top: 40px; /* Espaço após a logo */
+}
 
-    .andar {
-      flex: 1;
-      text-align: center;
-      min-width: 320px;
-    }
+.andar {
+  flex: 1;
+  text-align: center;
+  min-width: 320px;
+}
 
-    .painel {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
+.painel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
 
-    .card {
-      background-color: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-      padding: 20px;
-      width: 260px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      min-width: 250px;
-    }
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  padding: 20px;
+  width: 260px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  min-width: 250px;
+  cursor: pointer;
+}
 
-    .card:hover {
-      transform: scale(1.02);
-    }
+.card:hover {
+  transform: scale(1.02);
+}
 
-    .lab-card {
-      background-color: #e1f5fe;
-      border-left: 6px solid #0288d1;
-    }
+.lab-card {
+  background-color: #e1f5fe;
+  border-left: 6px solid #0288d1;
+}
 
-    .card h2 {
-      margin: 0 0 10px;
-      color: #222;
-      font-size: 1.5rem;
-    }
+.card h2 {
+  margin: 0 0 10px;
+  color: #222;
+  font-size: 1.5rem;
+}
 
-    .card p {
-      margin: 5px 0;
-      font-size: 1rem;
-    }
+.card p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
 
-    .status {
-      font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 0.9rem;
-    }
+.status {
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
 
-    .relogio-container {
-      text-align: center;
-      font-size: 1.2rem;
-      margin-top: 5px;
-      color: #555;
-      font-weight: bold;
-    }
+.relogio-container {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 5px;
+  color: #555;
+  font-weight: bold;
+}
 
-    .em-aula    { background-color: #dcedc8; color: #2e7d32; }
-    .livre      { background-color: #ffcdd2; color: #c62828; }
+.em-aula    { background-color: #dcedc8; color: #2e7d32; }
+.livre      { background-color: #ffcdd2; color: #c62828; }
 
-    .sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
-    .sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
-    .sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
+.sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
+.sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
+.sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
 
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      margin-top: 40px;
-      color: #888;
-    }
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 40px;
+  color: #888;
+}
 
-    @media (max-width: 768px) {
-      .painel-container {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
+@media (max-width: 768px) {
+  .painel-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
-    .tema-botao {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 100;
-      font-weight: bold;
-    }
+.tema-botao {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 100;
+  font-weight: bold;
+}
 
-    .dark-mode {
-      background: #121212;
-      color: #f0f0f0;
-    }
+.dark-mode {
+  background: #121212;
+  color: #f0f0f0;
+}
 
-    .dark-mode h1 {
-      color: #ffffff;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-    }
+.dark-mode h1 {
+  color: #ffffff;
+}
 
-    .dark-mode .relogio-container {
-      color: #ffffff;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-    }
+.dark-mode .relogio-container {
+  color: #ffffff;
+}
 
-    .dark-mode .card h2 {
-      color: #ffffff;
-    }
+.dark-mode h1,
+.dark-mode .relogio-container {
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
 
-    .dark-mode .card p,
-    .dark-mode .card .status {
-      color: #e0e0e0;
-    }
+.dark-mode .card h2 {
+  color: #ffffff;
+}
 
-    .dark-mode .card {
-      background: #1e1e1e;
-      color: #fff;
-    }
+.dark-mode .card p,
+.dark-mode .card .status {
+  color: #e0e0e0;
+}
 
-    .dark-mode .lab-card {
-      background: #263238;
-      border-left-color: #0288d1;
-    }
+.dark-mode .card {
+  background: #1e1e1e;
+  color: #fff;
+}
 
-    .dark-mode .status.em-aula {
-      background-color: #33691e;
-      color: #c5e1a5;
-    }
+.dark-mode .lab-card {
+  background: #263238;
+  border-left-color: #0288d1;
+}
 
-    .dark-mode .status.livre {
-      background-color: #b71c1c;
-      color: #ffcdd2;
-    }
+.dark-mode .status.em-aula {
+  background-color: #33691e;
+  color: #c5e1a5;
+}
 
-    .dark-mode .tema-botao {
-      background: #333;
-      color: #fff;
-      border-color: #555;
-    }
+.dark-mode .status.livre {
+  background-color: #b71c1c;
+  color: #ffcdd2;
+}
 
-    .dark-mode .sala-vermelha {
-      background-color: #3b1e1e !important;
-      border-left: 6px solid #ff8a80;
-    }
+.dark-mode .tema-botao {
+  background: #333;
+  color: #fff;
+  border-color: #555;
+}
 
-    .dark-mode .sala-amarela {
-      background-color: #3b3615 !important;
-      border-left: 6px solid #fff176;
-    }
+.dark-mode .sala-vermelha {
+  background-color: #3b1e1e !important;
+  border-left: 6px solid #ff8a80;
+}
 
-    .dark-mode .sala-verde {
-      background-color: #1b2f1b !important;
-      border-left: 6px solid #81c784;
-    }
-	
-	.busca-mobile {
-      display: none;
-      text-align: center;
-      margin: 10px 0;
-    }
+.dark-mode .sala-amarela {
+  background-color: #3b3615 !important;
+  border-left: 6px solid #fff176;
+}
 
-    .busca-mobile input {
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-    }
+.dark-mode .sala-verde {
+  background-color: #1b2f1b !important;
+  border-left: 6px solid #81c784;
+}
 
-    @media (max-width: 768px) {
-      .busca-mobile {
-        display: block;
-      }
-    }
-  </style>
+.busca-mobile {
+  display: none;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.busca-mobile input {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .busca-mobile {
+    display: block;
+  }
+}
+
+</style>
 </head>
 <body>
 
-  <h1>Painel de Salas de Aula</h1>
+<h1>Painel de Salas de Aula</h1>
+<div class="busca-mobile">
+  <input type="text" id="filtro" placeholder="Buscar sala ou curso..." oninput="filtrarSalas()">
+</div>
 
-  <div class="busca-mobile">
-    <input type="text" id="filtro" placeholder="Buscar sala ou curso..." oninput="filtrarSalas()">
+<!-- Botão tema -->
+<button id="toggle-dark" class="tema-botao">🌙 Modo Escuro</button>
+
+<!-- Relógio/data -->
+<div class="relogio-container">
+  <span id="relogio"></span>
+</div>
+
+<div class="painel-container">
+  <div class="andar">
+    <h2>Térreo</h2>
+    <div class="painel" id="terreo"></div>
   </div>
 
-  <button id="toggle-dark" class="tema-botao">🌙 Modo Escuro</button>
-
-  <div class="relogio-container">
-    <span id="relogio"></span>
+  <div class="andar">
+    <h2>Primeiro Andar</h2>
+    <div class="painel" id="primeiro"></div>
   </div>
+</div>
 
-  <div class="painel-container">
-    <div class="andar">
-      <h2>Térreo</h2>
-      <div class="painel" id="terreo"></div>
-    </div>
-    <div class="andar">
-      <h2>Primeiro Andar</h2>
-      <div class="painel" id="primeiro"></div>
-    </div>
-	
-	<div id="sem-dados" style="display: none; text-align: center; margin-top: 30px; color: red; font-weight: bold;">
-	  ⚠️ Nenhuma informação disponível no momento.
-	</div>
-  </div>
+<script>
+const webAppUrl = 'https://script.google.com/macros/s/AKfycbzC5n-4jHw5HzNwy3KHR6dPTRyj6wU5TCNLmlFxRyyQ0xRaUEr7Kwd6Crmi-XNv_fUk/exec';
 
-  <script>
-    const webAppUrl = 'https://script.google.com/macros/s/AKfycbzC5n-4jHw5HzNwy3KHR6dPTRyj6wU5TCNLmlFxRyyQ0xRaUEr7Kwd6Crmi-XNv_fUk/exec';
+const salasVermelhas = ['01', '02', '03', '06', '10', '19'];
+const salasAmarelas  = ['07', '11', '13', '15', '17', '18'];
+const salasVerdes    = ['08', '09', '12', '14'];
 
-    const salasVermelhas = ['01', '02', '03', '06', '10', '16', '19'];
-    const salasAmarelas  = ['07', '11', '13', '15', '17', '18'];
-    const salasVerdes    = ['08', '09', '12', '14'];
+function obterEmojiCurso(curso) {
+  if (!curso) return '';
+  const mapaEmojis = {
+    'Administração': '📊',
+    'Análises Clínicas': '🧪',
+    'Enfermagem': '🩺',
+    'Farmácia': '💊',
+    'Instrumentação Cirúrgica': '🗡️',
+    'Radiologia': '☢️',
+    'Edificações': '🏗️',
+    'Eletrotécnica': '⚡',
+    'Segurança do Trabalho': '🦺',
+    'Flebotomia': '💉'
+  };
+  return mapaEmojis[curso.trim()] || '';
+}
 
-    function obterEmojiCurso(curso) {
-      if (!curso) return '';
-      const mapaEmojis = {
-        'Administração': '📊',
-        'Análises Clínicas': '🧪',
-        'Enfermagem': '🩺',
-        'Farmácia': '💊',
-        'Instrumentação Cirúrgica': '🗡️',
-        'Radiologia': '☢️',
-        'Edificações': '🏗️',
-        'Eletrotécnica': '⚡',
-        'Segurança do Trabalho': '🦺',
-        'Flebotomia': '💉'
-      };
-      return mapaEmojis[curso.trim()] || '';
-    }
+function determinarStatus(sala) {
+  return (sala.curso || sala.turma || sala.turno) ? 'em-aula' : 'livre';
+}
 
-    function determinarStatus(sala) {
-      return (sala.curso || sala.turma || sala.turno) ? 'em-aula' : 'livre';
-    }
+function extrairNumeroSala(nomeSala) {
+  const match = nomeSala.match(/\d+/);
+  return match ? match[0] : '';
+}
 
-    function extrairNumeroSala(nomeSala) {
-      const match = nomeSala.match(/\d+/);
-      return match ? match[0] : '';
-    }
+function filtrarSalas() {
+  const termo = document.getElementById('filtro').value.toLowerCase();
+  const cards = document.querySelectorAll('.card');
 
-    function filtrarSalas() {
-      const termo = document.getElementById('filtro').value.toLowerCase();
-      const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const texto = card.innerText.toLowerCase();
+    card.style.display = texto.includes(termo) ? 'block' : 'none';
+  });
+}
 
-      cards.forEach(card => {
-        const texto = card.innerText.toLowerCase();
-        card.style.display = texto.includes(termo) ? 'block' : 'none';
-      });
-    }
+// Função para formatar a data
+function formatarData(data) {
+  const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit' };
+  return new Date(data).toLocaleDateString('pt-BR', options);
+}
 
-    async function atualizarPainel() {
-      try {
-        const response = await fetch(webAppUrl);
-        const salas = await response.json();
+async function atualizarPainel() {
+  try {
+    const response = await fetch(webAppUrl);
+    const salas = await response.json();
 
-        document.getElementById('terreo').innerHTML = '';
-        document.getElementById('primeiro').innerHTML = '';
+    document.getElementById('terreo').innerHTML = '';
+    document.getElementById('primeiro').innerHTML = '';
 
-        salas.forEach(sala => {
-          const status = determinarStatus(sala);
-          const statusTexto = status === 'em-aula' ? '📚 Em aula' : '🟢 Livre';
-          const numeroSala = extrairNumeroSala(sala.nome);
+    salas.forEach(sala => {
+      const status = determinarStatus(sala);
+      const statusTexto = status === 'em-aula' ? '📚 Em aula' : '🟢 Livre';
+      const numeroSala = extrairNumeroSala(sala.nome);
 
-          const card = document.createElement('div');
-          card.className = 'card';
+      const card = document.createElement('div');
+      card.className = 'card';
 
-          if (sala.nome.toLowerCase().includes('lab')) card.classList.add('lab-card');
-          if (salasVerdes.includes(numeroSala)) card.classList.add('sala-verde');
-          else if (salasVermelhas.includes(numeroSala)) card.classList.add('sala-vermelha');
-          else if (salasAmarelas.includes(numeroSala)) card.classList.add('sala-amarela');
-
-          let conteudo = `<h2>${sala.nome}</h2>`;
-          if (status === 'em-aula') {
-            conteudo += `<p><strong>${obterEmojiCurso(sala.curso)} ${sala.curso || '-'}</strong> - ${sala.turma || '-'}</p>`;
-            conteudo += `<p><strong>Turno:</strong> ${sala.turno || '-'}</p>`;
-          }
-          conteudo += `<p class="status ${status}">${statusTexto}</p>`;
-          card.innerHTML = conteudo;
-
-          const painelId = (sala.andar?.toLowerCase() === 'primeiro') ? 'primeiro' : 'terreo';
-          document.getElementById(painelId).appendChild(card);
-        });
-		if (!document.querySelector('#terreo .card') && !document.querySelector('#primeiro .card')) {
-		  document.getElementById('sem-dados').style.display = 'block';
-		} else {
-		  document.getElementById('sem-dados').style.display = 'none';
-		}
-      } catch (error) {
-        console.error('Erro ao buscar dados do Google Sheets:', error);
-		document.getElementById('sem-dados').style.display = 'block';
+      if (sala.nome.toLowerCase().includes('lab')) {
+        card.classList.add('lab-card');
       }
-    }
 
-    atualizarPainel();
-    setInterval(atualizarPainel, 60000);
+      if (salasVerdes.includes(numeroSala)) {
+        card.classList.add('sala-verde');
+      } else if (salasVermelhas.includes(numeroSala)) {
+        card.classList.add('sala-vermelha');
+      } else if (salasAmarelas.includes(numeroSala)) {
+        card.classList.add('sala-amarela');
+      }
 
-    function atualizarRelogio() {
-      const agora = new Date();
-      const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
-      const opcoesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-      const dataFormatada = agora.toLocaleDateString('pt-BR', opcoesData);
-      const horaFormatada = agora.toLocaleTimeString('pt-BR', opcoesHora);
-      document.getElementById('relogio').textContent = `${dataFormatada} | ${horaFormatada}`;
-    }
+      let conteudo = `<h2>${sala.nome}</h2>`;
+      conteudo += `<p><strong>${obterEmojiCurso(sala.curso)} ${sala.curso || '-'}</strong> - ${sala.turma || '-'}</p>`;
+      conteudo += `<p><strong>Turno:</strong> ${sala.turno || '-'}</p>`;
+      conteudo += `<p><strong>Data:</strong> ${formatarData(sala.data)}</p>`;
+      conteudo += `<p class="status ${status}">${statusTexto}</p>`;
+      conteudo += `<div class="detalhes" id="detalhes-${sala.nome}" style="display: none;">`;
+      conteudo += `<p><strong>Instrutor:</strong> ${sala.instrutor || '-'}</p>`;
+      conteudo += `<p><strong>Capacidade:</strong> ${sala.capacidade || '-'}</p>`;
+      conteudo += `<p><strong>Duração:</strong> ${sala.duracao || '-'}</p>`;
+      conteudo += `<p><strong>Observações:</strong> ${sala.observacoes || '-'}</p>`;
+      conteudo += `</div>`;
 
-    atualizarRelogio();
-    setInterval(atualizarRelogio, 1000);
+      card.innerHTML = conteudo;
 
-    document.getElementById('toggle-dark').addEventListener('click', function () {
-	  document.body.classList.toggle('dark-mode');
+      card.onclick = (event) => {
+        // Impede o clique de se propagar para o body
+        event.stopPropagation();
 
-	  const modoEscuroAtivo = document.body.classList.contains('dark-mode');
-	  this.textContent = modoEscuroAtivo ? '☀️ Modo Claro' : '🌙 Modo Escuro';
+        const detalhes = document.getElementById(`detalhes-${sala.nome}`);
+        const todasAsSalas = document.querySelectorAll('.detalhes');
+        
+        // Oculta todos os detalhes
+        todasAsSalas.forEach(det => {
+          if (det !== detalhes) {
+            det.style.display = 'none';
+          }
+        });
 
-	  const logo = document.getElementById('logo-img');
-	  if (logo) {
-		logo.src = modoEscuroAtivo ? 'logo_white.jpg' : 'logo.jpg';
-	  }
-	});
-	
-  </script>
+        // Alterna a visibilidade da sala clicada
+        detalhes.style.display = detalhes.style.display === 'block' ? 'none' : 'block';
+      };
 
-  <footer>
-    <div class="logo">
-      <img id="logo-img" src="logo.jpg" alt="Grau Educacional" />
-    </div>
-    <p>&copy; 2025 Junior Bezerra (TI Grau Educacional - Unidade Petrolina)</p>
-  </footer>
+      const painelId = numeroSala <= 10 ? 'terreo' : 'primeiro';
+      document.getElementById(painelId).appendChild(card);
+    });
+  } catch (error) {
+    console.error('Erro ao buscar dados do Google Sheets:', error);
+  }
+}
+
+// Fecha todos os detalhes se clicar fora das salas
+document.body.addEventListener('click', () => {
+  const todasAsSalas = document.querySelectorAll('.detalhes');
+  todasAsSalas.forEach(det => {
+    det.style.display = 'none';
+  });
+});
+
+// Atualizar painel inicialmente
+atualizarPainel();
+
+// Atualização automática do relógio
+function atualizarRelogio() {
+  const data = new Date();
+  const horas = String(data.getHours()).padStart(2, '0');
+  const minutos = String(data.getMinutes()).padStart(2, '0');
+  const segundos = String(data.getSeconds()).padStart(2, '0');
+  const dataFormatada = formatarData(data);
+  
+  document.getElementById('relogio').innerText = `${dataFormatada} | ${horas}:${minutos}:${segundos}`;
+}
+
+setInterval(atualizarRelogio, 1000);
+</script>
 </body>
 </html>
