@@ -61,6 +61,24 @@
       flex-wrap: wrap;
       margin-top: 40px;
     }
+	
+	.status-container {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  gap: 6px;
+	  font-size: 1rem;
+	  padding: 8px 0;
+	  text-align: center;
+	  border-radius: 20px;
+	}
+	
+	.sala {
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	}
 
     .andar {
       flex: 1;
@@ -277,7 +295,7 @@ function obterEmojiCurso(curso) {
 }
 
 function determinarStatus(sala) {
-  return (sala.curso || sala.turma || sala.turno) ? 'em-aula' : 'livre';
+  return sala.status?.toLowerCase() || 'livre';
 }
 
 function extrairNumeroSala(nome) {
@@ -310,7 +328,15 @@ async function atualizarPainel() {
 
     salas.forEach(sala => {
       const status = determinarStatus(sala);
-      const statusTexto = status === 'em-aula' ? '📚 Em aula' : '🟢 Livre';
+      const statusTexto = {
+		  'em-aula': `<svg width="16" height="16" viewBox="0 0 24 24" fill="green" style="vertical-align:middle;"><path d="M20 4H4c-1.1 0-2 .9-2 2v14h2v-2h16v2h2V6c0-1.1-.9-2-2-2zm0 10H4V6h16v8z"/><path d="M4 18h16v2H4z" fill="none"/></svg> Em aula`,
+		  'livre': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#2e7d32" style="vertical-align:middle;"><circle cx="12" cy="12" r="10"/></svg> Livre`,
+		  'reservado': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#f57c00" style="vertical-align:middle;"><path d="M12 17a2 2 0 110-4 2 2 0 010 4zm1-9h-2V7h2v1zm1-2H10c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v1h2v-1h1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg> Reservado`,
+		  'em prova': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#1976d2" style="vertical-align:middle;"><path d="M3 3v18h18V3H3zm8 12H8v-2h3v2zm5-4H8V9h8v2zm0-4H8V5h8v2z"/></svg> Em Prova`,
+		  'seminário': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#8e24aa" style="vertical-align:middle;"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm1-4H10V7h4v6z"/></svg> Seminário`,
+		  'fechada': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#c62828" style="vertical-align:middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.29 13.88l-1.41 1.41L12 13.41l-2.88 2.88-1.41-1.41L10.59 12 7.71 9.12l1.41-1.41L12 10.59l2.88-2.88 1.41 1.41L13.41 12l2.88 2.88z"/></svg> Fechada`
+		}[status] || status;
+
       const numeroSala = extrairNumeroSala(sala.nome);
       const card = document.createElement('div');
       card.className = 'card';
@@ -334,7 +360,7 @@ async function atualizarPainel() {
           </p>
         `;
       }
-      conteudo += `<p class="status ${status}">${statusTexto}</p>`;
+      conteudo += `<div class="status-container ${status}" >${statusTexto}</div>`;
       card.innerHTML = conteudo;
 
       card.addEventListener('click', function (e) {
