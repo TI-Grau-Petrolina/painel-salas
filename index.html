@@ -8,249 +8,326 @@
 
   <!-- Estilo e fontes -->
   <style>
-    @font-face {
-      font-family: 'Panton';
-      src: url('fonts/Panton-Regular.ttf') format('truetype');
-      font-weight: normal;
-    }
-    @font-face {
-      font-family: 'Panton';
-      src: url('fonts/Panton-Bold.ttf') format('truetype');
-      font-weight: bold;
-    }
+/*================== FONTES ==================*/
+@font-face {
+  font-family: 'Panton';
+  src: url('fonts/Panton-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Panton';
+  src: url('fonts/Panton-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
 
-    body {
-      font-family: 'Panton', sans-serif;
-      background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
-      margin: 0;
-      padding: 0;
-    }
-	
-    .logo {
-      width: 100%;
-      text-align: center;
-      padding-top: 2px;
-      padding-bottom: 2px;
-    }
+/*================== BASE E GERAL ==================*/
+body {
+  font-family: 'Panton', sans-serif;
+  background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+  margin: 0;
+  padding: 0;
+}
 
-    .logo img {
-      width: 50%;
-      max-width: 200px;
-      height: auto;
-    }
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-top: 55px;
+}
 
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      color: #333;
-      margin-top: 55px;
-    }
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 40px;
+  color: #888;
+}
 
-    .relogio-container {
-      text-align: center;
-      font-size: 1.2rem;
-      margin-top: 5px;
-      color: #555;
-      font-weight: bold;
-    }
+/*================== LOGO ==================*/
+.logo {
+  width: 100%;
+  text-align: center;
+  padding: 2px 0;
+}
+.logo img {
+  width: 50%;
+  max-width: 200px;
+  height: auto;
+}
 
-    .painel-container {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-	
-	.status-container {
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  gap: 6px;
-	  font-size: 1rem;
-	  padding: 8px 0;
-	  text-align: center;
-	  border-radius: 20px;
-	}
-	
-	.sala {
-	  display: flex;
-	  flex-direction: column;
-	  justify-content: center;
-	  align-items: center;
-	}
+/*================== RELÓGIO ==================*/
+.relogio-container {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 5px;
+  color: #555;
+  font-weight: bold;
+}
 
-    .andar {
-      flex: 1;
-      text-align: center;
-      min-width: 320px;
-    }
+/*================== CONTAINERS ==================*/
+.painel-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
 
-    .painel {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
+.painel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
 
-    .card {
-      background-color: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-      padding: 20px;
-      width: 260px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      min-width: 250px;
-      cursor: pointer;
-      position: relative;
-    }
+.andar {
+  flex: 1;
+  text-align: center;
+  min-width: 320px;
+}
 
-    .card.expanded {
-      position: fixed;
-      top: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 600px;
-      height: auto;
-      z-index: 9999;
-    }
+.sala {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-    .lab-card {
-      background-color: #e1f5fe;
-      border-left: 6px solid #0288d1;
-    }
+/*================== CARDS ==================*/
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  padding: 20px;
+  width: 260px;
+  min-width: 250px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
 
-    .card h2 {
-      margin: 0 0 10px;
-      color: #222;
-      font-size: 1.5rem;
-    }
+.card.expanded {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  z-index: 9999;
+}
 
-    .card p {
-      margin: 5px 0;
-      font-size: 1rem;
-    }
+.card h2 {
+  margin: 0 0 10px;
+  color: #222;
+  font-size: 1.5rem;
+}
 
-    .status {
-      font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 0.9rem;
-    }
+.card p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
 
-    .em-aula    { background-color: #dcedc8; color: #2e7d32; }
-    .livre      { background-color: #ffcdd2; color: #c62828; }
+.lab-card {
+  background-color: #e1f5fe;
+  border-left: 6px solid #0288d1;
+}
 
-    .sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
-    .sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
-    .sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
+/*================== STATUS ==================*/
+.status-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1rem;
+  padding: 8px 0;
+  text-align: center;
+  border-radius: 20px;
+}
 
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      margin-top: 40px;
-      color: #888;
-    }
+.status {
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
 
-    .busca-mobile {
-      display: none;
-      text-align: center;
-      margin: 10px 0;
-    }
+.em-aula    { background-color: #dcedc8; color: #2e7d32; }
+.livre      { background-color: #ffcdd2; color: #c62828; }
 
-    .busca-mobile input {
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-    }
+/*================== STATUS POR SALA ==================*/
+.sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
+.sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
+.sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
 
-    .tema-botao {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 100;
-      font-weight: bold;
-    }
+/*================== DARK MODE ==================*/
+.dark-mode {
+  background: #121212;
+  color: #f0f0f0;
+}
 
-    .dark-mode {
-      background: #121212;
-      color: #f0f0f0;
-    }
+.dark-mode h1,
+.dark-mode .relogio-container {
+  color: #ffffff;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
 
-    .dark-mode h1,
-    .dark-mode .relogio-container {
-      color: #ffffff;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-    }
+.dark-mode .card {
+  background: #1e1e1e;
+  color: #fff;
+}
 
-    .dark-mode .card {
-      background: #1e1e1e;
-      color: #fff;
-    }
+.dark-mode .card h2 {
+  color: #fff;
+}
 
-    .dark-mode .card h2 {
-      color: #fff;
-    }
+.dark-mode .lab-card {
+  background: #263238;
+  border-left-color: #0288d1;
+}
 
-    .dark-mode .lab-card {
-      background: #263238;
-      border-left-color: #0288d1;
-    }
+.dark-mode .status.em-aula {
+  background-color: #33691e;
+  color: #c5e1a5;
+}
 
-    .dark-mode .status.em-aula {
-      background-color: #33691e;
-      color: #c5e1a5;
-    }
+.dark-mode .status.livre {
+  background-color: #b71c1c;
+  color: #ffcdd2;
+}
 
-    .dark-mode .status.livre {
-      background-color: #b71c1c;
-      color: #ffcdd2;
-    }
+.dark-mode .tema-botao {
+  background: #333;
+  color: #fff;
+  border-color: #555;
+}
 
-    .dark-mode .tema-botao {
-      background: #333;
-      color: #fff;
-      border-color: #555;
-    }
+.dark-mode .sala-vermelha {
+  background-color: #3b1e1e !important;
+  border-left: 6px solid #ff8a80;
+}
 
-    .dark-mode .sala-vermelha {
-      background-color: #3b1e1e !important;
-      border-left: 6px solid #ff8a80;
-    }
+.dark-mode .sala-amarela {
+  background-color: #3b3615 !important;
+  border-left: 6px solid #fff176;
+}
 
-    .dark-mode .sala-amarela {
-      background-color: #3b3615 !important;
-      border-left: 6px solid #fff176;
-    }
+.dark-mode .sala-verde {
+  background-color: #1b2f1b !important;
+  border-left: 6px solid #81c784;
+}
 
-    .dark-mode .sala-verde {
-      background-color: #1b2f1b !important;
-      border-left: 6px solid #81c784;
-    }
+/*================== BOTÕES E ELEMENTOS FIXOS ==================*/
+.tema-botao {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 100;
+  font-weight: bold;
+}
 
-    @media (max-width: 768px) {
-      .painel-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      .busca-mobile {
-        display: block;
-      }
-    }
+#fullscreen-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.3s;
+}
+
+#fullscreen-toggle:hover {
+  background-color: #666;
+}
+
+/*================== SOBREPOSIÇÕES ==================*/
+#start-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+#start-button {
+  padding: 20px 40px;
+  font-size: 2rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#start-button:hover {
+  background-color: #218838;
+}
+
+#card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000c;
+  z-index: 9000;
+  display: none;
+}
+
+/*================== BUSCA (MOBILE) ==================*/
+.busca-mobile {
+  display: none;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.busca-mobile input {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+/*================== RESPONSIVO ==================*/
+@media (max-width: 768px) {
+  .painel-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .busca-mobile {
+    display: block;
+  }
+}
+
+
   </style>
 </head>
+<div id="start-overlay">
+  <button id="start-button">▶️ Iniciar Painel</button>
+</div>
+
 <body>
+<div id="card-overlay"></div>
 
 <h1>Painel de Salas de Aula</h1>
 <div class="busca-mobile">
@@ -260,6 +337,7 @@
 <div class="relogio-container"><span id="relogio"></span></div>
 
 <div class="painel-container">
+<button id="fullscreen-toggle">🔳 Tela Cheia</button>
   <div class="andar">
     <h2>Térreo</h2>
     <div class="painel" id="terreo"></div>
@@ -271,12 +349,23 @@
 </div>
 
 <script>
+// Função para entrar em tela cheia ao clicar no botão
+document.getElementById("start-button").addEventListener("click", () => {
+  document.getElementById("start-overlay").style.display = "none";
+  document.documentElement.requestFullscreen().catch((err) => {
+    alert(`Erro ao ativar tela cheia: ${err.message}`);
+  });
+});
+
+// URL do WebApp
 const webAppUrl = 'https://script.google.com/macros/s/AKfycbzC5n-4jHw5HzNwy3KHR6dPTRyj6wU5TCNLmlFxRyyQ0xRaUEr7Kwd6Crmi-XNv_fUk/exec';
 
+// Definindo as salas por cores
 const salasVermelhas = ['01', '02', '03', '06', '10', '16', '19'];
 const salasAmarelas  = ['07', '11', '13', '15', '17', '18'];
 const salasVerdes    = ['08', '09', '12', '14'];
 
+// Função para obter o emoji do curso
 function obterEmojiCurso(curso) {
   if (!curso) return '';
   const mapa = {
@@ -294,21 +383,25 @@ function obterEmojiCurso(curso) {
   return mapa[curso.trim()] || '';
 }
 
+// Função para determinar o status da sala
 function determinarStatus(sala) {
   return sala.status?.toLowerCase() || 'livre';
 }
 
+// Função para extrair o número da sala
 function extrairNumeroSala(nome) {
   const match = nome.match(/\d+/);
   return match ? match[0] : '';
 }
 
+// Função para formatar a data para o formato brasileiro
 function formatarDataBrasileira(dataISO) {
   const date = new Date(dataISO);
   const semana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
   return `Data: ${semana[date.getDay()]}, ${date.toLocaleDateString('pt-BR')}`;
 }
 
+// Função para filtrar as salas com base no filtro de pesquisa
 function filtrarSalas() {
   const termo = document.getElementById('filtro').value.toLowerCase();
   const cards = document.querySelectorAll('.card');
@@ -318,6 +411,7 @@ function filtrarSalas() {
   });
 }
 
+// Função para atualizar o painel de salas
 async function atualizarPainel() {
   try {
     const response = await fetch(webAppUrl);
@@ -329,13 +423,13 @@ async function atualizarPainel() {
     salas.forEach(sala => {
       const status = determinarStatus(sala);
       const statusTexto = {
-		  'em-aula': `<svg width="16" height="16" viewBox="0 0 24 24" fill="green" style="vertical-align:middle;"><path d="M20 4H4c-1.1 0-2 .9-2 2v14h2v-2h16v2h2V6c0-1.1-.9-2-2-2zm0 10H4V6h16v8z"/><path d="M4 18h16v2H4z" fill="none"/></svg> Em aula`,
-		  'livre': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#2e7d32" style="vertical-align:middle;"><circle cx="12" cy="12" r="10"/></svg> Livre`,
-		  'reservado': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#f57c00" style="vertical-align:middle;"><path d="M12 17a2 2 0 110-4 2 2 0 010 4zm1-9h-2V7h2v1zm1-2H10c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v1h2v-1h1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg> Reservado`,
-		  'em prova': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#1976d2" style="vertical-align:middle;"><path d="M3 3v18h18V3H3zm8 12H8v-2h3v2zm5-4H8V9h8v2zm0-4H8V5h8v2z"/></svg> Em Prova`,
-		  'seminário': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#8e24aa" style="vertical-align:middle;"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm1-4H10V7h4v6z"/></svg> Seminário`,
-		  'fechada': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#c62828" style="vertical-align:middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.29 13.88l-1.41 1.41L12 13.41l-2.88 2.88-1.41-1.41L10.59 12 7.71 9.12l1.41-1.41L12 10.59l2.88-2.88 1.41 1.41L13.41 12l2.88 2.88z"/></svg> Fechada`
-		}[status] || status;
+        'em-aula': `<svg width="16" height="16" viewBox="0 0 24 24" fill="green" style="vertical-align:middle;"><path d="M20 4H4c-1.1 0-2 .9-2 2v14h2v-2h16v2h2V6c0-1.1-.9-2-2-2zm0 10H4V6h16v8z"/><path d="M4 18h16v2H4z" fill="none"/></svg> Em aula`,
+        'livre': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#2e7d32" style="vertical-align:middle;"><circle cx="12" cy="12" r="10"/></svg> Livre`,
+        'reservado': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#f57c00" style="vertical-align:middle;"><path d="M12 17a2 2 0 110-4 2 2 0 010 4zm1-9h-2V7h2v1zm1-2H10c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v1h2v-1h1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg> Reservado`,
+        'em prova': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#1976d2" style="vertical-align:middle;"><path d="M3 3v18h18V3H3zm8 12H8v-2h3v2zm5-4H8V9h8v2zm0-4H8V5h8v2z"/></svg> Em Prova`,
+        'seminário': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#8e24aa" style="vertical-align:middle;"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm1-4H10V7h4v6z"/></svg> Seminário`,
+        'fechada': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#c62828" style="vertical-align:middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.29 13.88l-1.41 1.41L12 13.41l-2.88 2.88-1.41-1.41L10.59 12 7.71 9.12l1.41-1.41L12 10.59l2.88-2.88 1.41 1.41L13.41 12l2.88 2.88z"/></svg> Fechada`
+      }[status] || status;
 
       const numeroSala = extrairNumeroSala(sala.nome);
       const card = document.createElement('div');
@@ -363,65 +457,95 @@ async function atualizarPainel() {
       conteudo += `<div class="status-container ${status}" >${statusTexto}</div>`;
       card.innerHTML = conteudo;
 
+      // Adiciona evento de clique para expandir/colapsar o card
       card.addEventListener('click', function (e) {
         e.stopPropagation();
-        document.querySelectorAll('.card.expanded').forEach(c => {
-          if (c !== card) {
-            c.classList.remove('expanded');
-            c.querySelector('.info-extra')?.style.setProperty('display', 'none');
-          }
-        });
-
-        const info = card.querySelector('.info-extra');
-        if (card.classList.contains('expanded')) {
-          card.classList.remove('expanded');
-          info.style.display = 'none';
-        } else {
-          card.classList.add('expanded');
-          info.style.display = 'block';
-        }
+        const jaExpandido = card.classList.contains('expanded');
+        document.querySelectorAll('.card.expanded').forEach(c => recolherCard(c));
+        if (!jaExpandido) expandirCard(card);
       });
 
+      // Adiciona o card ao painel
       const painelId = (sala.andar?.toLowerCase() === 'primeiro') ? 'primeiro' : 'terreo';
       document.getElementById(painelId).appendChild(card);
     });
 
-    document.body.addEventListener('click', () => {
-      document.querySelectorAll('.card.expanded').forEach(card => {
-        card.classList.remove('expanded');
-        card.querySelector('.info-extra')?.style.setProperty('display', 'none');
-      });
+    // Fecha o card se o usuário clicar fora
+    document.body.addEventListener('click', (e) => {
+      if (!e.target.closest('.card')) {
+        const cardAtivo = document.querySelector('.card.expanded');
+        if (cardAtivo) recolherCard(cardAtivo);
+      }
     });
+
   } catch (error) {
     console.error('Erro ao buscar dados:', error);
   }
 }
 
+// Função para atualizar o relógio
 function atualizarRelogio() {
   const agora = new Date();
   const semana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
   const data = `${semana[agora.getDay()]}, ${agora.toLocaleDateString('pt-BR')}`;
   const hora = agora.toLocaleTimeString('pt-BR');
   document.getElementById('relogio').textContent = `${data} | ${hora}`;
-  
 }
 
-document.getElementById('toggle-dark').addEventListener('click', function () {
-	  document.body.classList.toggle('dark-mode');
-
-const modoEscuroAtivo = document.body.classList.contains('dark-mode');
-	  this.textContent = modoEscuroAtivo ? '☀️ Modo Claro' : '🌙 Modo Escuro';
-
-	  const logo = document.getElementById('logo-img');
-	  if (logo) {
-		logo.src = modoEscuroAtivo ? 'logo_white.jpg' : 'logo.jpg';
-	  }
-	}); 
-
+// Atualizar painel e relógio a cada intervalo
 atualizarPainel();
 setInterval(atualizarPainel, 60000);
 atualizarRelogio();
 setInterval(atualizarRelogio, 1000);
+
+// Função de alternância do modo escuro
+document.getElementById('toggle-dark').addEventListener('click', function () {
+  document.body.classList.toggle('dark-mode');
+  const modoEscuroAtivo = document.body.classList.contains('dark-mode');
+  this.textContent = modoEscuroAtivo ? '☀️ Modo Claro' : '🌙 Modo Escuro';
+
+  const logo = document.getElementById('logo-img');
+  if (logo) {
+    logo.src = modoEscuroAtivo ? 'logo_white.jpg' : 'logo.jpg';
+  }
+});
+
+// Botão de tela cheia
+const fullscreenButton = document.getElementById("fullscreen-toggle");
+
+fullscreenButton.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch((err) => {
+      alert(`Erro ao ativar tela cheia: ${err.message}`);
+    });
+  } else {
+    document.exitFullscreen();
+  }
+});
+
+// Funções para expandir e recolher os cards
+function expandirCard(card) {
+  card.classList.add('expanded');
+  const info = card.querySelector('.info-extra');
+  if (info) info.style.display = 'block';
+  document.getElementById('card-overlay').style.display = 'block';
+}
+
+function recolherCard(card) {
+  card.classList.remove('expanded');
+  const info = card.querySelector('.info-extra');
+  if (info) info.style.display = 'none';
+  document.getElementById('card-overlay').style.display = 'none';
+}
+
+// Evento de clique para recolher card
+document.getElementById('card-overlay').addEventListener('click', () => {
+  const cardAtivo = document.querySelector('.card.expanded');
+  if (cardAtivo) {
+    recolherCard(cardAtivo);
+  }
+});
+
 </script>
 
 <footer>
