@@ -160,7 +160,46 @@ footer {
 .sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
 .sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
 .sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
+.sala-cinza	   { background-color: #ccc;  !important; border-left: 6px solid  #333;}
 
+/*================== FILTRAR POR TURNO ==================*/
+.turno-selector {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.btn-turno {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-turno span {
+  display: inline;
+}
+
+.btn-turno:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.03);
+}
+
+.btn-turno.active {
+  background-color: #2e7d32;
+  color: white;
+  font-weight: bold;
+}
 /*================== DARK MODE ==================*/
 .dark-mode {
   background: #121212;
@@ -334,9 +373,17 @@ footer {
   <input type="text" id="filtro" placeholder="Buscar sala ou curso..." oninput="filtrarSalas()">
 </div>
 <button id="toggle-dark" class="tema-botao">🌙 Modo Escuro</button>
+
+<div id="filtro-turno" style="text-align: center; margin: 10px 0;">
+  <button onclick="filtrarPorTurno('todos')">🌍 Todos</button>
+  <button onclick="filtrarPorTurno('Manhã')">🌅 Manhã</button>
+  <button onclick="filtrarPorTurno('Tarde')">🌇 Tarde</button>
+  <button onclick="filtrarPorTurno('Noite')">🌙 Noite</button>
+</div>
 <div class="relogio-container"><span id="relogio"></span></div>
 
 <div class="painel-container">
+
 <button id="fullscreen-toggle">🔳 Tela Cheia</button>
   <div class="andar">
     <h2>Térreo</h2>
@@ -361,9 +408,9 @@ document.getElementById("start-button").addEventListener("click", () => {
 const webAppUrl = 'https://script.google.com/macros/s/AKfycbzC5n-4jHw5HzNwy3KHR6dPTRyj6wU5TCNLmlFxRyyQ0xRaUEr7Kwd6Crmi-XNv_fUk/exec';
 
 // Definindo as salas por cores
-const salasVermelhas = ['01', '02', '03', '05', '07', '13', '14'];
-const salasAmarelas  = ['04', '06', '08', '10', '12', '15'];
-const salasVerdes    = ['09', '11', '16', '17'];
+const salasVermelhas = ['01', '02', '03', '06', '10', '16', '19'];
+const salasAmarelas  = ['07', '11', '13', '15', '17', '18'];
+const salasVerdes    = ['08', '09', '12', '14'];
 
 // Função para obter o emoji do curso
 function obterEmojiCurso(curso) {
@@ -411,6 +458,30 @@ function filtrarSalas() {
   });
 }
 
+// Função para filtrar as salas com base no turno de pesquisa
+function filtrarPorTurno(turnoSelecionado) {
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    const turnoCard = card.getAttribute('data-turno') || '';
+    if (turnoSelecionado === 'todos' || turnoCard === turnoSelecionado) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // Atualiza botão ativo
+  document.querySelectorAll('.btn-turno').forEach(btn => {
+    if (btn.getAttribute('data-turno') === turnoSelecionado) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
+
+
 // Função para atualizar o painel de salas
 async function atualizarPainel() {
   try {
@@ -422,6 +493,9 @@ async function atualizarPainel() {
 
     salas.forEach(sala => {
       const status = determinarStatus(sala);
+	  // Ocultar salas fechadas
+	  if (status === 'fechada') return;
+	  
       const statusTexto = {
         'em-aula': `<svg width="16" height="16" viewBox="0 0 24 24" fill="green" style="vertical-align:middle;"><path d="M20 4H4c-1.1 0-2 .9-2 2v14h2v-2h16v2h2V6c0-1.1-.9-2-2-2zm0 10H4V6h16v8z"/><path d="M4 18h16v2H4z" fill="none"/></svg> Em aula`,
         'livre': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#2e7d32" style="vertical-align:middle;"><circle cx="12" cy="12" r="10"/></svg> Livre`,
@@ -434,11 +508,24 @@ async function atualizarPainel() {
       const numeroSala = extrairNumeroSala(sala.nome);
       const card = document.createElement('div');
       card.className = 'card';
+	  card.setAttribute('data-turno', sala.turno || '');
 
       if (sala.nome.toLowerCase().includes('lab')) card.classList.add('lab-card');
-      if (salasVerdes.includes(numeroSala)) card.classList.add('sala-verde');
-      else if (salasVermelhas.includes(numeroSala)) card.classList.add('sala-vermelha');
-      else if (salasAmarelas.includes(numeroSala)) card.classList.add('sala-amarela');
+	
+		const capacidade = parseInt(sala.capacidade);
+
+		if (!isNaN(capacidade)) {
+		  if (capacidade <= 30) {
+			card.classList.add('sala-vermelha'); // pequena
+		  } else if (capacidade <= 50) {
+			card.classList.add('sala-amarela'); // média
+		  } else {
+			card.classList.add('sala-verde'); // grande
+		  }
+		} else {
+		  card.classList.add('sala-cinza'); // capacidade inválida ou ausente (opcional)
+		}
+
 
       let conteudo = `<h2>${sala.nome}</h2>`;
       if (status === 'em-aula') {
