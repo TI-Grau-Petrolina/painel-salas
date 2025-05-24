@@ -361,10 +361,6 @@ footer {
 
   </style>
 </head>
-<div id="start-overlay">
-  <button id="start-button">▶️ Iniciar Painel</button>
-</div>
-
 <body>
 <div id="card-overlay"></div>
 
@@ -396,14 +392,6 @@ footer {
 </div>
 
 <script>
-// Função para entrar em tela cheia ao clicar no botão
-document.getElementById("start-button").addEventListener("click", () => {
-  document.getElementById("start-overlay").style.display = "none";
-  document.documentElement.requestFullscreen().catch((err) => {
-    alert(`Erro ao ativar tela cheia: ${err.message}`);
-  });
-});
-
 // URL do WebApp
 const webAppUrl = 'https://script.google.com/macros/s/AKfycbzC5n-4jHw5HzNwy3KHR6dPTRyj6wU5TCNLmlFxRyyQ0xRaUEr7Kwd6Crmi-XNv_fUk/exec';
 
