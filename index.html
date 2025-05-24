@@ -272,10 +272,10 @@ footer {
 }
 
 #fullscreen-toggle {
-  position: fixed;
+  position: flex;
   bottom: 20px;
   right: 20px;
-  background-color: #444;
+  background-color: #;
   color: #fff;
   border: none;
   padding: 12px 16px;
@@ -288,6 +288,20 @@ footer {
 
 #fullscreen-toggle:hover {
   background-color: #666;
+}
+
+#toggle-dark {
+  position: flex;
+  bottom: 20px;
+  right: 20px;
+  background-color: #;
+  border: none;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.3s;
 }
 
 /*================== SOBREPOSIÇÕES ==================*/
@@ -357,9 +371,17 @@ footer {
     display: block;
   }
 }
-
-
   </style>
+  
+<div id="filtro-turno" style="text-align: center; margin: 10px 0;">
+  <button class="btn" id="toggle-dark">💡</button>
+  <button class="btn" id="fullscreen-toggle" >🖥️</button>
+  <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('todos')">🌍 </button>
+  <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('Manhã')">🌅 </button>
+  <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('Tarde')">🌇 </button>
+  <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('Noite')">🏙️ </button>
+</div>
+  
 </head>
 <body>
 <div id="card-overlay"></div>
@@ -368,19 +390,11 @@ footer {
 <div class="busca-mobile">
   <input type="text" id="filtro" placeholder="Buscar sala ou curso..." oninput="filtrarSalas()">
 </div>
-<button id="toggle-dark" class="tema-botao">🌙 Modo Escuro</button>
 
-<div id="filtro-turno" style="text-align: center; margin: 10px 0;">
-  <button class="tema-botao" onclick="filtrarPorTurno('todos')">🌍 Todos</button>
-  <button class="tema-botao" onclick="filtrarPorTurno('Manhã')">🌅 Manhã</button>
-  <button class="tema-botao" onclick="filtrarPorTurno('Tarde')">🌇 Tarde</button>
-  <button class="tema-botao" onclick="filtrarPorTurno('Noite')">🌙 Noite</button>
-</div>
 <div class="relogio-container"><span id="relogio"></span></div>
 
 <div class="painel-container">
 
-<button id="fullscreen-toggle">🔳 Tela Cheia</button>
   <div class="andar">
     <h2>Térreo</h2>
     <div class="painel" id="terreo"></div>
