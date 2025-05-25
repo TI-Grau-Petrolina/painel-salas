@@ -40,6 +40,8 @@ footer {
   font-size: 0.9rem;
   margin-top: 40px;
   color: #888;
+  background-color: #66666626;
+  padding: 2px;
 }
 
 /*================== LOGO ==================*/
@@ -83,6 +85,7 @@ footer {
   flex: 1;
   text-align: center;
   min-width: 320px;
+  min-height: 465px;
 }
 
 .sala {
@@ -303,6 +306,9 @@ footer {
   z-index: 9999;
   transition: background-color 0.3s;
 }
+#toggle-dark:hover {
+  background-color: #666;
+}
 
 /*================== SOBREPOSIÇÕES ==================*/
 #start-overlay {
@@ -361,7 +367,7 @@ footer {
 }
 
 /*================== RESPONSIVO ==================*/
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .painel-container {
     flex-direction: column;
     align-items: center;
@@ -371,12 +377,16 @@ footer {
     display: block;
   }
 }
+
   </style>
   
-<div id="filtro-turno" style="text-align: center; margin: 10px 0;">
+<div id="filtro-turno" style="text-align: center;margin: 10px 0;background-color: #66666626;/* border-radius: 8px; */padding: 5px;">
+  <div class="logo">
+      <img id="logo-img" src="logo.jpg" alt="Grau Educacional" />
+    </div>
   <button class="btn" id="toggle-dark">💡</button>
-  <button class="btn" id="fullscreen-toggle" >🖥️</button>
-  <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('todos')">🌍 </button>
+  <button class="btn" id="fullscreen-toggle" >📐️</button>
+  <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('todos')">💯 </button>
   <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('Manhã')">🌅 </button>
   <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('Tarde')">🌇 </button>
   <button class="btn" id="fullscreen-toggle" onclick="filtrarPorTurno('Noite')">🏙️ </button>
@@ -591,7 +601,7 @@ setInterval(atualizarRelogio, 1000);
 document.getElementById('toggle-dark').addEventListener('click', function () {
   document.body.classList.toggle('dark-mode');
   const modoEscuroAtivo = document.body.classList.contains('dark-mode');
-  this.textContent = modoEscuroAtivo ? '☀️ Modo Claro' : '🌙 Modo Escuro';
+  this.textContent = modoEscuroAtivo ? '⚪️' : '⚫';
 
   const logo = document.getElementById('logo-img');
   if (logo) {
@@ -638,10 +648,7 @@ document.getElementById('card-overlay').addEventListener('click', () => {
 </script>
 
 <footer>
-    <div class="logo">
-      <img id="logo-img" src="logo.jpg" alt="Grau Educacional" />
-    </div>
-    <p>&copy; 2025 Junior Bezerra (TI Grau Educacional - Unidade Petrolina)</p>
-  </footer>
+	<p>&copy; 2025 Junior Bezerra (TI Grau Educacional - Unidade Petrolina)</p>
+</footer>
 </body>
 </html>
