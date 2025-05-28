@@ -1,0 +1,375 @@
+/*================== FONTES ==================*/
+@font-face {
+  font-family: 'Panton';
+  src: url('fonts/Panton-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Panton';
+  src: url('fonts/Panton-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+/*================== BASE E GERAL ==================*/
+body {
+  font-family: 'Panton', sans-serif;
+  background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-top: 55px;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 40px;
+  color: #888;
+  background-color: #66666626;
+  padding: 2px;
+}
+
+/*================== LOGO ==================*/
+.logo {
+  width: 100%;
+  text-align: center;
+  padding: 2px 0;
+}
+.logo img {
+  width: 50%;
+  max-width: 200px;
+  height: auto;
+}
+
+/*================== RELÓGIO ==================*/
+.relogio-container {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 5px;
+  color: #555;
+  font-weight: bold;
+}
+
+/*================== CONTAINERS ==================*/
+.painel-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.painel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.andar {
+  flex: 1;
+  text-align: center;
+  min-width: 320px;
+  min-height: 465px;
+}
+
+.sala {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*================== CARDS ==================*/
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  padding: 20px;
+  width: 260px;
+  min-width: 250px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.card.expanded {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  z-index: 9999;
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  color: #222;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.lab-card {
+  background-color: #e1f5fe;
+  border-left: 6px solid #0288d1;
+}
+
+/*================== STATUS ==================*/
+.status-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1rem;
+  padding: 8px 0;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.status {
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.em-aula    { background-color: #dcedc8; color: #2e7d32; }
+.livre      { background-color: #ffcdd2; color: #c62828; }
+
+/*================== STATUS POR SALA ==================*/
+.sala-vermelha { background-color: #ffebee !important; border-left: 6px solid #e53935; }
+.sala-amarela  { background-color: #fffde7 !important; border-left: 6px solid #fbc02d; }
+.sala-verde    { background-color: #e8f5e9 !important; border-left: 6px solid #43a047; }
+.sala-cinza	   { background-color: #ccc;  !important; border-left: 6px solid  #333;}
+
+/*================== FILTRAR POR TURNO ==================*/
+.turno-selector {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.btn-turno {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-turno span {
+  display: inline;
+}
+
+.btn-turno:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.03);
+}
+
+.btn-turno.active {
+  background-color: #2e7d32;
+  color: white;
+  font-weight: bold;
+}
+/*================== DARK MODE ==================*/
+.dark-mode {
+  background: #121212;
+  color: #f0f0f0;
+}
+
+.dark-mode h1,
+.dark-mode .relogio-container {
+  color: #ffffff;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
+.dark-mode .card {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.dark-mode .card h2 {
+  color: #fff;
+}
+
+.dark-mode .lab-card {
+  background: #263238;
+  border-left-color: #0288d1;
+}
+
+.dark-mode .status.em-aula {
+  background-color: #33691e;
+  color: #c5e1a5;
+}
+
+.dark-mode .status.livre {
+  background-color: #b71c1c;
+  color: #ffcdd2;
+}
+
+.dark-mode .tema-botao {
+  background: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+.dark-mode .sala-vermelha {
+  background-color: #3b1e1e !important;
+  border-left: 6px solid #ff8a80;
+}
+
+.dark-mode .sala-amarela {
+  background-color: #3b3615 !important;
+  border-left: 6px solid #fff176;
+}
+
+.dark-mode .sala-verde {
+  background-color: #1b2f1b !important;
+  border-left: 6px solid #81c784;
+}
+
+/*================== BOTÕES E ELEMENTOS FIXOS ==================*/
+.tema-botao {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 100;
+  font-weight: bold;
+}
+#filtro-turno{
+  text-align: center;
+  margin: 10px 0;
+  background-color: #66666626;
+  padding: 5px;
+}
+
+#fullscreen-toggle {
+  position: flex;
+  bottom: 20px;
+  right: 20px;
+  background-color: #;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.3s;
+}
+
+#fullscreen-toggle:hover {
+  background-color: #666;
+}
+
+#toggle-dark {
+  position: flex;
+  bottom: 20px;
+  right: 20px;
+  background-color: #;
+  border: none;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.3s;
+}
+#toggle-dark:hover {
+  background-color: #666;
+}
+
+/*================== SOBREPOSIÇÕES ==================*/
+#start-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+#start-button {
+  padding: 20px 40px;
+  font-size: 2rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#start-button:hover {
+  background-color: #218838;
+}
+
+#card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000c;
+  z-index: 9000;
+  display: none;
+}
+
+/*================== BUSCA (MOBILE) ==================*/
+.busca-mobile {
+  display: none;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.busca-mobile input {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+/*================== RESPONSIVO ==================*/
+@media (max-width: 750px) {
+  .painel-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .busca-mobile {
+    display: block;
+  }
+}
